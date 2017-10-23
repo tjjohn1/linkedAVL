@@ -27,4 +27,24 @@ public interface LinkedAVLTreeADT<T>
 
     public T getRoot();
 
+    public boolean isEmpty();
+
+    public int treeSize();
+
+    public boolean contains(T targetElement);
+
+    public T find(T targetElement);
+
+    public Iterator<T> iterator();
+
+    public String inOrderTraverse();
+
+    public String preOrderTraverse();
+
+    public String postOrderTraverse();
+
+    public String levelOrderTraverse();
+
+    public String toString();
+
 }
