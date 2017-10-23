@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /* LinkedAVLTreeADT Interface to Instantiate methods which will be
  * implemented and used by the LinkedAVLTree classes
  * Being only an interface to be implemented, there are
