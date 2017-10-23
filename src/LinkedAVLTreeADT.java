@@ -1,50 +1,44 @@
-import java.util.Iterator;
-
 /* LinkedAVLTreeADT Interface to Instantiate methods which will be
  * implemented and used by the LinkedAVLTree classes
  * Being only an interface to be implemented, there are
  * no method bodies, only the method headers themselves waiting
  * to be implemented by other classes
- *
- *  @author [Thomas Johnson]
- *  @programName [LinkedAVLTreeADT<T>.java]
  */
-public interface LinkedAVLTreeADT<T>
-{
-    public void addElement(T Element);
+public interface LinkedAVLTreeADT<T> {
+    void addElement(T Element);
 
-    public T removeElement(T targetElement);
+    T removeElement(T targetElement);
 
-    public void removeAllOccurrences(T targetElement);
+    void removeAllOccurrences(T targetElement);
 
-    public T removeMin();
+    T removeMin();
 
-    public T removeMax();
+    T removeMax();
 
-    public T findMin();
+    T findMin();
 
-    public T findMax();
+    T findMax();
 
-    public T getRoot();
+    T getRoot();
 
-    public boolean isEmpty();
+    boolean isEmpty();
 
-    public int treeSize();
+    int treeSize();
 
-    public boolean contains(T targetElement);
+    boolean contains(T targetElement);
 
-    public T find(T targetElement);
+    T find(T targetElement);
 
-    public Iterator<T> iterator();
+    Iterator<T> iterator();
 
-    public String inOrderTraverse();
+    String inOrderTraverse();
 
-    public String preOrderTraverse();
+    String preOrderTraverse();
 
-    public String postOrderTraverse();
+    String postOrderTraverse();
 
-    public String levelOrderTraverse();
+    String levelOrderTraverse();
 
-    public String toString();
+    String toString();
 
 }
