@@ -1,3 +1,6 @@
+import java.util.Iterator;
+import java.util.LinkedList;
+
 /* LinkedAVLTreeIterator class to create a new
  * Iterator object with which to Iterate through the
  * elements of a LinkedAVLTree.
