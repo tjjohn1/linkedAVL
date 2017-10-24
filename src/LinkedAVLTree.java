@@ -201,7 +201,7 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
 
         else
         {
-            //return getNewNode(newRoot);
+            return getNewNode(newRoot);
         }
 
         newRoot.setTreeHeight(Math.max(treeHeight(newRoot.getLeftChild()), treeHeight(newRoot.getRightChild())) + 1);
@@ -221,7 +221,27 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
 
     public T findMin() throws EmptyCollectionException
     {
-        return null;
+        if(isEmpty())
+        {
+            throw new EmptyCollectionException ("Linked AVL Tree");
+        }
+
+        LinkedAVLTreeNode<T> minNode = findMinAssist(root);
+        T minimum = minNode.getElement();
+
+        return minimum;
+    }
+
+    private LinkedAVLTreeNode<T> findMinAssist(LinkedAVLTreeNode<T> newNode)
+    {
+        if(newNode.getLeftChild() == null)
+        {
+            return newNode;
+        }
+        else
+        {
+            return findMinAssist(newNode.getLeftChild());
+        }
     }
 
     public T findMax() throws EmptyCollectionException
@@ -320,5 +340,52 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
         return rightTreeRotation(node);
     }
 
+    private LinkedAVLTreeNode<T> getNewNode(LinkedAVLTreeNode<T> node)
+    {
+        LinkedAVLTreeNode<T> newNode;
+
+        if(node.getLeftChild() != null && node.getRightChild() != null)
+        {
+            newNode = findMinAssist(node.getRightChild());
+            node.setRightChild(removeElementAssist(node.getRightChild(), newNode.getElement()));
+            newNode.setLeftChild(node.getLeftChild());
+            newNode.setRightChild(node.getRightChild());
+
+            if(treeHeight(newNode.getLeftChild()) - treeHeight(newNode.getRightChild()) == 2)
+            {
+                if(treeHeight(newNode.getLeftChild().getLeftChild()) >= treeHeight(newNode.getLeftChild().getRightChild()))
+                {
+                    newNode = leftTreeRotation(newNode);
+                }
+
+                else
+                {
+                    newNode = rightLeftTreeRotation(newNode);
+                }
+                treeSize--;
+            }
+
+            newNode.setTreeHeight(Math.max(treeHeight(newNode.getLeftChild()), treeHeight(newNode.getRightChild())) + 1);
+        }
+
+        else
+        {
+            if(node.getLeftChild() != null)
+            {
+                newNode = node.getLeftChild();
+            }
+            else
+            {
+                newNode = node.getRightChild();
+            }
+
+            treeSize--;
+        }
+
+        node.setLeftChild(null);
+        node.setRightChild(null);
+
+        return newNode;
+    }
 
 }
