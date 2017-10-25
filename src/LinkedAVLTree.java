@@ -50,7 +50,7 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
 
         if(treeHeight(newRoot.getLeftChild()) - treeHeight(newRoot.getRightChild()) == 2)
         {
-            if(comparableElement.compareTo((T) newRoot.getLeftChild().getElement()) < 0)
+            if(comparableElement.compareTo(newRoot.getLeftChild().getElement()) < 0)
             {
                 newRoot = leftTreeRotation(newRoot);
             }
@@ -66,7 +66,7 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
 
             if(treeHeight(newRoot.getRightChild()) - treeHeight(newRoot.getLeftChild()) == 2)
             {
-                if(comparableElement.compareTo((T) newRoot.getRightChild().getElement()) > 0)
+                if(comparableElement.compareTo(newRoot.getRightChild().getElement()) > 0)
                 {
                     newRoot = rightTreeRotation(newRoot);
                 }
@@ -86,14 +86,7 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
     {
         LinkedAVLTreeNode<T> resultNode = findAssistant(root, element);
 
-        if(resultNode == null)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return resultNode != null;
     }
 
     public T find(T element) throws EmptyCollectionException, ElementNotFoundException
