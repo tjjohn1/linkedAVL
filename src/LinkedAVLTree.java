@@ -246,21 +246,61 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
 
     public T findMax() throws EmptyCollectionException
     {
-        return null;
+        if(isEmpty())
+        {
+            throw new EmptyCollectionException("Linked AVL Tree");
+        }
+
+        LinkedAVLTreeNode<T> maxNode = findMaxAssist(root);
+        T maximum = maxNode.getElement();
+
+        return maximum;
+    }
+
+    private LinkedAVLTreeNode<T> findMaxAssist(LinkedAVLTreeNode<T> newRoot)
+    {
+        if(newRoot.getRightChild() == null)
+        {
+            return newRoot;
+        }
+
+        else
+        {
+            return findMaxAssist(newRoot.getRightChild());
+        }
     }
 
     public T removeMin() throws EmptyCollectionException
     {
-        return null;
+        if(isEmpty())
+        {
+            throw new EmptyCollectionException("Linked AVL Tree");
+        }
+
+        LinkedAVLTreeNode<T> minNode = findMinAssist(root);
+        T minimum = minNode.getElement();
+        root = removeElementAssist(root, minimum);
+
+        return minimum;
     }
 
     public T removeMax() throws EmptyCollectionException
     {
-        return null;
+        if(isEmpty())
+        {
+            throw new EmptyCollectionException("Linked AVL Tree");
+        }
+
+        LinkedAVLTreeNode<T> maxNode = findMaxAssist(root);
+        T maximum = maxNode.getElement();
+        root = removeElementAssist(root, maximum);
+
+        return maximum;
     }
 
     public boolean isEmpty()
     {
+
         return (treeSize() == 0);
     }
 
@@ -271,27 +311,133 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
 
     public Iterator<T> iterator()
     {
-        return null;
+        return new LinkedAVLTreeIterator<T>(root);
     }
 
     public String inOrderTraverse()
     {
-        return null;
+        if(isEmpty())
+        {
+            return new String("Linked AVL Tree is empty");
+        }
+
+        else
+        {
+            return inOrderTraverseAssist(root, 0);
+        }
+    }
+
+    public String inOrderTraverseAssist(LinkedAVLTreeNode<T> newRoot, int depth)
+    {
+        StringBuilder nodeString = new StringBuilder();
+
+        if(newRoot == null)
+        {
+            return nodeString.toString();
+        }
+
+        nodeString.append(inOrderTraverseAssist(newRoot.getLeftChild(), depth + 1));
+        nodeString.append(newRoot.getElement() + " ");
+        nodeString.append(inOrderTraverseAssist(newRoot.getRightChild(), depth + 1));
+
+        return nodeString.toString();
     }
 
     public String preOrderTraverse()
     {
-        return null;
+        if(isEmpty())
+        {
+            return new String("Linked AVL Tree is empty");
+        }
+
+        else
+        {
+            return preOrderTraverseAssist(root, 0);
+        }
+    }
+
+    private String preOrderTraverseAssist(LinkedAVLTreeNode<T> newRoot, int depth)
+    {
+        StringBuilder nodeString = new StringBuilder();
+
+        if(newRoot == null)
+        {
+            return nodeString.toString();
+        }
+
+        nodeString.append(newRoot.getElement() + " ");
+        nodeString.append(preOrderTraverseAssist(newRoot.getLeftChild(), depth + 1));
+        nodeString.append(preOrderTraverseAssist(newRoot.getRightChild(), depth + 1));
+
+        return nodeString.toString();
     }
 
     public String postOrderTraverse()
     {
-        return null;
+        if(isEmpty())
+        {
+            return new String("Linked AVL Tree is empty");
+        }
+
+        else
+        {
+            return postOrderTraverseAssist(root, 0);
+        }
+    }
+
+    private String postOrderTraverseAssist(LinkedAVLTreeNode<T> newRoot, int depth)
+    {
+        StringBuilder nodeString = new StringBuilder();
+
+        if(newRoot == null)
+        {
+            return nodeString.toString();
+        }
+
+        nodeString.append(postOrderTraverseAssist(newRoot.getLeftChild(), depth + 1));
+        nodeString.append(postOrderTraverseAssist(newRoot.getRightChild(), depth + 1));
+        nodeString.append(newRoot.getElement() + " ");
+
+        return nodeString.toString();
     }
 
     public String levelOrderTraverse()
     {
-        return null;
+        if(isEmpty())
+        {
+            return new String("Linked AVL Tree is empty");
+        }
+        else
+        {
+            return levelOrderTraverseAssist(root, 0);
+        }
+    }
+
+    private String levelOrderTraverseAssist(LinkedAVLTreeNode<T> newRoot, int depth)
+    {
+        StringBuilder nodeString = new StringBuilder();
+
+        if(newRoot == null)
+        {
+            return nodeString.toString();
+        }
+
+        nodeString.append(levelOrderTraverseAssist(newRoot.getRightChild(), depth + 1));
+
+        for(int i = 0; i < depth; i++)
+        {
+            nodeString.append("   ");
+        }
+
+        if(depth > 0)
+        {
+            nodeString.append(" ");
+        }
+
+        nodeString.append(newRoot.getElement() + "\n");
+        nodeString.append(levelOrderTraverseAssist(newRoot.getLeftChild(), depth + 1));
+
+        return nodeString.toString();
     }
 
     private int treeHeight(LinkedAVLTreeNode<T> newNode)
@@ -386,6 +532,22 @@ class LinkedAVLTree<T> implements LinkedAVLTreeADT<T>
         node.setRightChild(null);
 
         return newNode;
+    }
+
+    public String toStringAssist(LinkedAVLTreeNode<T> newRoot, int depth)
+    {
+        StringBuilder nodeString = new StringBuilder();
+
+        if(newRoot == null)
+        {
+            return nodeString.toString();
+        }
+
+        nodeString.append(toStringAssist(newRoot.getLeftChild(), depth + 1));
+        nodeString.append(newRoot.getElement() + " ");
+        nodeString.append(toStringAssist(newRoot.getRightChild(), depth + 1));
+
+        return nodeString.toString();
     }
 
 }
